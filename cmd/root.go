@@ -16,10 +16,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// DockerAPIMinVersion is the minimum version of the docker api required to
-// use watchtower
-const DockerAPIMinVersion string = "1.24"
-
 var (
 	client       container.Client
 	scheduleSpec string
@@ -85,7 +81,7 @@ func PreRun(cmd *cobra.Command, args []string) {
 	enableLabel, _ = f.GetBool("label-enable")
 
 	// configure environment vars for client
-	err := flags.EnvConfig(cmd, DockerAPIMinVersion)
+	err := flags.EnvConfig(cmd)
 	if err != nil {
 		log.Fatal(err)
 	}
