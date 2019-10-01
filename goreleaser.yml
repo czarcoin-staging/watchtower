@@ -31,8 +31,8 @@ dockers:
     goarm: ''
     dockerfile: Dockerfile
     image_templates:
-      - containrrr/watchtower:amd64-{{ .Version }}
-      - containrrr/watchtower:amd64-latest
+      - storjlabs/watchtower:amd64-{{ .Version }}
+      - storjlabs/watchtower:amd64-latest
     binaries:
       - watchtower
   -
@@ -41,8 +41,8 @@ dockers:
     goarm: ''
     dockerfile: Dockerfile
     image_templates:
-      - containrrr/watchtower:i386-{{ .Version }}
-      - containrrr/watchtower:i386-latest
+      - storjlabs/watchtower:i386-{{ .Version }}
+      - storjlabs/watchtower:i386-latest
     binaries:
       - watchtower
   -
@@ -51,8 +51,8 @@ dockers:
     goarm: 6
     dockerfile: Dockerfile
     image_templates:
-      - containrrr/watchtower:armhf-{{ .Version }}
-      - containrrr/watchtower:armhf-latest
+      - storjlabs/watchtower:armhf-{{ .Version }}
+      - storjlabs/watchtower:armhf-latest
     binaries:
       - watchtower
   -
@@ -61,7 +61,7 @@ dockers:
     goarm: ''
     dockerfile: Dockerfile
     image_templates:
-      - containrrr/watchtower:arm64v8-{{ .Version }}
-      - containrrr/watchtower:arm64v8-latest
+      - storjlabs/watchtower:arm64v8-{{ .Version }}
+      - storjlabs/watchtower:arm64v8-latest
     binaries:
       - watchtower
