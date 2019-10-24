@@ -7,6 +7,7 @@ import (
 	"github.com/containrrr/watchtower/notifications"
 	"github.com/robfig/cron"
 	log "github.com/sirupsen/logrus"
+	"math/rand"
 	"os"
 	"os/signal"
 	"strconv"
@@ -15,6 +16,9 @@ import (
 
 	"github.com/spf13/cobra"
 )
+
+const minPollInterval int = 12 * 60 * 60 // 12 hours
+const maxPollInterval int = 72 * 60 * 60 // 72 hours
 
 var (
 	client       container.Client
@@ -60,18 +64,10 @@ func PreRun(cmd *cobra.Command, args []string) {
 		log.SetLevel(log.DebugLevel)
 	}
 
-	pollingSet := f.Changed("interval")
-	schedule, _ := f.GetString("schedule")
-	cronLen := len(schedule)
-
-	if pollingSet && cronLen > 0 {
-		log.Fatal("Only schedule or interval can be defined, not both.")
-	} else if cronLen > 0 {
-		scheduleSpec, _ = f.GetString("schedule")
-	} else {
-		interval, _ := f.GetInt("interval")
-		scheduleSpec = "@every " + strconv.Itoa(interval) + "s"
-	}
+	
+	// Schedule a random poll interval between minPollInterval and maxPollInterval
+	interval := minPollInterval + rand.Intn(maxPollInterval-minPollInterval)
+	scheduleSpec = "@every " + strconv.Itoa(interval) + "s"
 
 	cleanup, noRestart, monitorOnly, timeout = flags.ReadFlags(cmd)
 
